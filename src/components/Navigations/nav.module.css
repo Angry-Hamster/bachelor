@@ -1,0 +1,37 @@
+.main {
+  height: 40px;
+  width: 100%;
+
+  background-color: rgba(39, 39, 39, 0.99);
+
+  display: flex;
+  align-items: center;
+
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.712);
+
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+
+.link, a {
+  color: red;
+  text-decoration: none;
+
+  font-weight: 500;
+
+  margin-left: 30px;
+
+  cursor: default;
+}
+
+.link:hover, a:hover {
+  color: rgb(76, 183, 216);
+}
+
+@media (max-width: 280px) {
+
+  .main{
+    min-width: 280px;
+  }
+}

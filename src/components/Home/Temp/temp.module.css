@@ -1,0 +1,33 @@
+@font-face {
+  font-family:"LCD";
+  src: url("../../../font/LCD.ttf") format("truetype");
+}
+
+.temp_box{
+  width: 240px;
+  height: 100px;
+  margin: 10px;
+
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.temp_box p{
+  margin: 0;
+}
+
+.temp_box h2{
+  font-size: 45px;
+  margin: 0;
+  margin-bottom: 10px;
+
+  font-family: LCD;
+  position: relative;
+  top: 10px;
+  z-index: 10;
+}

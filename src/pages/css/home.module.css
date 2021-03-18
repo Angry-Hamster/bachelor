@@ -1,0 +1,51 @@
+@font-face {
+  font-family:"LCD";
+  src: url("../../font/LCD.ttf") format("truetype");
+}
+
+.app {
+  display: flex;
+}
+
+.temp_box,
+.chart_box {
+  display: flex;
+}
+
+.info_box {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 840px) {
+  .app {
+    display: block;
+  }
+
+  .info_box {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1120px) {
+  .info_box {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 560px) {
+  .chart_box{
+    display: none;
+  }
+
+  .temp_box,
+  .info_box{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .app{
+    min-width: 280px;
+  }
+}
+

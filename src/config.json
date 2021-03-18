@@ -1,0 +1,27 @@
+{
+  "auth": {
+    "input_name": "name",
+    "input_pass": "password",
+    "button_login": "login"
+  },
+
+  "home": {
+    "temp_1": "temp_1",
+    "temp_2": "temp_2",
+    "chart": "I`m Chart",
+    "container": {
+      "head": "price",
+      "currency": "uan/kW"
+    }
+  },
+
+  "setting":{
+
+  },
+
+  "navigation":{
+    "toHome": "home",
+    "toSetting" : "setting",
+    "Exit": "exit"
+  }
+}

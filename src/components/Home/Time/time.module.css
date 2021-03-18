@@ -1,0 +1,25 @@
+@font-face {
+  font-family:"LCD";
+  src: url("../../../font/LCD.ttf") format("truetype");
+}
+
+.time_box {
+  width: 240px;
+  height: 100px;
+  margin: 10px;
+
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time_box h2 {
+  position: relative;
+  top: 10px;
+  z-index: 10;
+  font-size: 70px;
+  font-family: LCD;
+}
