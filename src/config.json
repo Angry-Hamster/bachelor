@@ -8,20 +8,56 @@
   "home": {
     "temp_1": "temp_1",
     "temp_2": "temp_2",
-    "chart": "I`m Chart",
+    "chart": {
+      "temp": "temp",
+      "setTemp": "setTemp"
+    },
     "container": {
       "head": "price",
       "currency": "uan/kW"
     }
   },
 
-  "setting":{
-
+  "setting": {
+    "title": ["network", "mqtt"],
+    "list": {
+      "form": {
+        "button": "add",
+        "select_title": "please select group",
+        "select": ["Fuck you 1", "Fuck you 2", "Fuck you 3"]
+      }
+    },
+    "multiply": {
+      "alert": "Fuck you",
+      "placeholder": "multiply",
+      "button_add": "add",
+      "button_submit": "submit"
+    },
+    "time_temp": {
+      "alert": "Fuck you1",
+      "placeholder": "temp1",
+      "button_add": "add1",
+      "button_submit": "submit1"
+    },
+    "openWeatherMap": {
+      "title": "OpenWeatherMap",
+      "placeholder1": "palseholder1",
+      "placeholder2": "palseholder2",
+      "button_submit": "push"
+    },
+    "users": {
+      "list": "Users",
+      "form": {
+        "placeholder1": "palseholder1",
+        "placeholder2": "palseholder2",
+        "button_submit": "add"
+      }
+    }
   },
 
-  "navigation":{
+  "navigation": {
     "toHome": "home",
-    "toSetting" : "setting",
+    "toSetting": "setting",
     "Exit": "exit"
   }
 }

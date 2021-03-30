@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Form from "./Form";
-import ListItem from "./ListItem";
+import Item from "./Item";
 
 import s from "./s.module.css";
+import c from "../../../config.json";
 
 class List extends Component {
   state = {
@@ -10,9 +11,9 @@ class List extends Component {
     ],
   };
 
-  handleDelete = (id) => {
+  handleDelete = (name) => {
     const result = this.state.list.filter(e => {
-      return e.id !== id
+      return e.name !== name
     })
 
     this.setState({ list: result });
@@ -31,14 +32,15 @@ class List extends Component {
   render() {
     const { handleDelete, handleAdd } = this
     return (
-      <>
+      <div className={s.box}>
+        <h2>{c.setting.users.list}</h2>
         <ul className={s.list_ul}>
           {this.state.list.map((elem) => {
-            return <ListItem key={elem.id} delete={handleDelete} info={elem} style={s}/>;
+            return <Item key={elem.name} delete={handleDelete} info={elem} style={s}/>;
           })}
         </ul>
-        <Form mqtt={this.state.list} add={handleAdd}/>
-      </>
+        <Form users={this.state.list} add={handleAdd} style={s}/>
+      </div>
     );
   }
 }

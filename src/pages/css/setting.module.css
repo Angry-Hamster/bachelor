@@ -1,7 +1,33 @@
+.main{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+  align-content: flex-start;
+}
+
 .info{
   padding: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 
   margin: 10px;
   width: 240px;
+}
+
+.info h2{
+  margin: 0;
+  padding: 0;
+
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 540px) {
+  .main {
+    flex-direction: column;
+    justify-content: center;
+  }
 }

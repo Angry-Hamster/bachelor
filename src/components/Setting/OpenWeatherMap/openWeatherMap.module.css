@@ -1,0 +1,40 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 150px;
+}
+
+.form h2{
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.form input {
+  height: 25px;
+  border-radius: 3px;
+  border: 1px solid #878c97;
+  margin-bottom: 5px;
+}
+
+.form input:focus {
+  outline: #4267B2;
+}
+
+.form button{
+  background: #4267B2;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  outline: none;
+  height: 30px;
+  border: none;
+  font-size: medium;
+}
+
+.form button:hover{
+  background: #34528ff1;
+}

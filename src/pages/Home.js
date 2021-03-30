@@ -11,7 +11,7 @@ import style_price from "./css/price.module.css";
 class Home extends Component {
   state = {
     temp: [0, 0],
-    price: 0,
+    price: {current: 0},
   };
 
   setTemp = () => {
@@ -29,7 +29,7 @@ class Home extends Component {
   };
 
   setPrice = () => {
-    fetch("/tariff", {
+    fetch("/api/tariff", {
       method: "GET",
       cache: "no-cache",
       headers: {
@@ -51,7 +51,7 @@ class Home extends Component {
   getColorForPrice = (multiplier) => {
     if (multiplier < 0.6) {
       return "green";
-    } else if (multiplier < 1) {
+    } else if (multiplier < 1.1) {
       return "#ebd234";
     } else {
       return "red";
