@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import close from "../../../image/close.svg";
+import c from "../../../config.json"
 
 class ListItem extends Component {
   state = {
@@ -14,7 +15,8 @@ class ListItem extends Component {
 
   render() {
     const { state, handleClick } = this;
-    const { name, status } = state.info;
+    const { name, group } = state.info;
+
     return (
       <li className={this.props.style.item}>
         <div>
@@ -22,7 +24,7 @@ class ListItem extends Component {
             <span>{name}</span>
           </div>
           <div>
-            <span>{status}</span>
+            <span>{c.setting.users.form.select[group-1]}</span>
           </div>
         </div>
         <input

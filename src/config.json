@@ -1,63 +1,74 @@
 {
   "auth": {
-    "input_name": "name",
-    "input_pass": "password",
-    "button_login": "login"
+    "input_name": "Імʼя",
+    "input_pass": "Пароль",
+    "button_login": "Ввійти"
   },
 
   "home": {
-    "temp_1": "temp_1",
-    "temp_2": "temp_2",
+    "temp_1": "Температура задана",
+    "temp_2": "Температура фактична",
+    "temp_3": "Температура на дворі",
     "chart": {
-      "temp": "temp",
-      "setTemp": "setTemp"
+      "temp": "Температура фактична",
+      "setTemp": "Температура задана"
     },
-    "container": {
-      "head": "price",
-      "currency": "uan/kW"
+    "container_prie": {
+      "head": "Ціна",
+      "currency": "uan/kWh"
+    },
+    "container_power":{
+      "title": "Power",
+      "currency": "Wh"
     }
   },
 
   "setting": {
-    "title": ["network", "mqtt"],
+    "title": ["MQTT"],
     "list": {
       "form": {
-        "button": "add",
-        "select_title": "please select group",
-        "select": ["Fuck you 1", "Fuck you 2", "Fuck you 3"]
+        "alert": "Не коректні данні",
+        "button": "Додати",
+        "select_title": "Оберіть групу",
+        "select": ["В домі", "На дворі", "Напруга"]
       }
     },
     "multiply": {
-      "alert": "Fuck you",
-      "placeholder": "multiply",
-      "button_add": "add",
-      "button_submit": "submit"
+      "alert": "Не коректні данні",
+      "title": "Mножник",
+      "placeholder": "Тарифний множник",
+      "button_add": "Додати",
+      "button_submit": "Застосувати"
     },
     "time_temp": {
-      "alert": "Fuck you1",
-      "placeholder": "temp1",
-      "button_add": "add1",
-      "button_submit": "submit1"
+      "alert": "Не коректні данні",
+      "title": "Температура",
+      "placeholder": "Температура",
+      "button_add": "Додати",
+      "button_submit": "Застосувати"
     },
     "openWeatherMap": {
       "title": "OpenWeatherMap",
-      "placeholder1": "palseholder1",
-      "placeholder2": "palseholder2",
-      "button_submit": "push"
+      "placeholder1": "API ключ",
+      "placeholder2": "Код міста (city id)",
+      "button_submit": "Застосувати"
     },
     "users": {
-      "list": "Users",
+      "list": "Користувач",
       "form": {
-        "placeholder1": "palseholder1",
-        "placeholder2": "palseholder2",
-        "button_submit": "add"
+        "alert": "Не коректні данні",
+        "placeholder1": "Імʼя",
+        "placeholder2": "Пароль",
+        "button_submit": "Додати",
+        "select_title": "Оберіть групу",
+        "select": ["Власник", "Адміністратор", "Користувач"]
       }
     }
   },
 
   "navigation": {
-    "toHome": "home",
-    "toSetting": "setting",
-    "Exit": "exit"
+    "toHome": "Головна",
+    "toSetting": "Налаштування",
+    "Exit": "Вихід"
   }
 }

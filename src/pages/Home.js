@@ -10,8 +10,9 @@ import style_price from "./css/price.module.css";
 
 class Home extends Component {
   state = {
-    temp: [0, 0],
-    price: {current: 0},
+    temp: [0, 0, 0],
+    price: { current: 0 },
+    woltege: "state home str 15",
   };
 
   setTemp = () => {
@@ -93,37 +94,50 @@ class Home extends Component {
     const { temp } = this.state;
     return (
       <div className={s.app}>
-        <div className={s.box}>
-          <div className={s.temp_box}>
-            <Temp temp={temp[0]} name={c.home.temp_1} />
-            <Temp
-              temp={temp[1]}
-              name={c.home.temp_2}
-              color={this.getColorForTemp(temp[0] - temp[1])}
-            />
-          </div>
+        <div className={s.temp_box}>
+          <Temp temp={temp[0]} name={c.home.temp_1} />
+          <Temp
+            temp={temp[1]}
+            name={c.home.temp_2}
+            color={this.getColorForTemp(temp[0] - temp[1])}
+          />
+        </div>
 
+        <div className={s.temp_box}>
+          <Temp temp={temp[2]} name={c.home.temp_3} />
+          <Time />
+        </div>
+
+        <div className={s.container_box}>
           <div className={s.chart_box}>
             <Chart name={c.home.chart} />
           </div>
-        </div>
 
-        <div className={s.info_box}>
-          <Time />
-          <Container>
-            <p className={style_price.head}>{c.home.container.head}</p>
-            <div className={style_price.box}>
-              <h1
-                style={{
-                  color: this.getColorForPrice(this.state.price.multiplier),
-                }}
-                className={style_price.price}
-              >
-                {this.state.price.current}
-              </h1>
-              <p>{c.home.container.currency}</p>
-            </div>
-          </Container>
+          <div className={s.temp_box}>
+            <Container>
+              <p className={style_price.head}>{c.home.container_prie.head}</p>
+              <div className={style_price.box}>
+                <h1
+                  style={{
+                    color: this.getColorForPrice(this.state.price.multiplier),
+                  }}
+                  className={style_price.price}
+                >
+                  {this.state.price.current}
+                </h1>
+                <p>{c.home.container_prie.currency}</p>
+              </div>
+            </Container>
+            <Container>
+              <p className={style_price.head}>{c.home.container_power.title}</p>
+              <div className={style_price.box}>
+                <h1 className={style_price.price}>
+                  {this.state.woltege}
+                </h1>
+                <p>{c.home.container_power.currency}</p>
+              </div>
+            </Container>
+          </div>
         </div>
       </div>
     );

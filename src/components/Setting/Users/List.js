@@ -17,12 +17,16 @@ class List extends Component {
     })
 
     this.setState({ list: result });
+
+    this.props.get(result)
   };
 
   handleAdd = (e) => {
     this.setState(prevState => {
       return { list: [...prevState.list, e] };
     });
+
+    this.props.get([...this.state.list, e])
   }
 
   // componentDidUpdate(prevProps, prevState) {

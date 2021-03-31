@@ -5,10 +5,12 @@
 
 .app {
   display: flex;
+  flex-wrap: wrap;
+  align-self: flex-start;
+
 }
 
-.temp_box,
-.chart_box {
+.temp_box {
   display: flex;
 }
 
@@ -17,9 +19,14 @@
   flex-direction: column;
 }
 
+.container_box{
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 840px) {
   .app {
-    display: block;
+    /* display: block; */
   }
 
   .info_box {
@@ -31,6 +38,10 @@
   .info_box {
     flex-direction: row;
   }
+  .container_box{
+    flex-direction: row;
+  }
+
 }
 
 @media (max-width: 560px) {

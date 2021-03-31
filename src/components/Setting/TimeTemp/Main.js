@@ -10,56 +10,31 @@ class Main extends Component {
   state = {
     items: [],
     info: {
-      timeStart: "",
+      time: "",
       temp: "",
     },
   };
 
-  post = () => {
-    if (!this.state.items.length) {
-      window.alert(c.setting.time_temp.alert);
-      return true;
-    }
-
-    // ! POST
-    fetch("/api/addTemps", {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-        // ! TOKEN
-      },
-    })
-
-    return true;
-  };
-
   addItem = (e) => {
     e.preventDefault();
+    let { time, temp } = this.state.info;
 
-    const { timeStart, temp } = this.state.info;
+    let arr = time.split(":");
+    time = Number(arr[0]) * 60 + Number(arr[1]);
 
-    if (
-      this.state.items.filter(
-        (w) => w.timeStart.toLowerCase() == timeStart.toLowerCase(),
-      ).length == 0
-    ) {
-      let timeItem = timeStart.split(":");
-      let t = Number(timeItem[0]) * 60 + Number(timeItem[1]);
-      const item = { timeStart, temp, id: genID(), t };
-
+    if (this.state.items.filter((w) => w.time == time).length) {
+      window.alert(c.setting.time_temp.alert);
+    } else {
       let items = [...this.state.items];
-
-      items.push(item);
-
-      items.sort((a, b) => a.t - b.t);
+      items.push({ time, temp: Number(temp), id: genID() });
+      items.sort((a, b) => a.time - b.time);
 
       this.setState({ items });
-    } else {
-      window.alert(c.setting.time_temp.alert);
+
+      this.props.get(items);
     }
 
-    this.setState({ info: { timeStart: "", temp: "" } });
+    this.setState({ info: { time: "", temp: "" } });
   };
 
   chage = (e) => {
@@ -75,23 +50,39 @@ class Main extends Component {
     });
 
     this.setState({ items: result });
+    this.props.get(result);
+  };
+
+  getTime = (t) => {
+    let minute = t % 60;
+    let hour = (t - minute) / 60;
+
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+
+    if (hour < 10) {
+      hour = `0${hour}`;
+    }
+
+    return `${hour}:${minute}`;
   };
 
   render() {
-    const { addItem, chage, handleDelete, post } = this;
-    const { timeStart, temp } = this.state.info;
-    const disable = timeStart != "" && temp != "";
+    const { addItem, chage, handleDelete, getTime } = this;
+    const { time, temp } = this.state.info;
+    const disable = time != "" && temp != "";
 
     return (
       <>
-        <h2 className={s.title}>Fuck you</h2>
+        <h2 className={s.title}>{c.setting.time_temp.title}</h2>
 
         <ul className={s.list}>
           {this.state.items.map((e) => {
             return (
               <li key={e.id}>
                 <div>
-                  <span>{e.timeStart}</span>
+                  <span>{getTime(e.time)}</span>
                 </div>
                 <div>
                   <span>{e.temp}&deg;C</span>
@@ -112,9 +103,9 @@ class Main extends Component {
         <form onSubmit={addItem} className={s.form}>
           <input
             type="time"
-            name="timeStart"
+            name="time"
             onChange={chage}
-            value={timeStart}
+            value={time}
             required
           />
           <input
@@ -129,13 +120,9 @@ class Main extends Component {
           />
 
           <button type="submit" disabled={!disable}>
-          {c.setting.time_temp.button_add}
+            {c.setting.time_temp.button_add}
           </button>
         </form>
-
-        <button onClick={post} className={s.submit}>
-        {c.setting.time_temp.button_submit}
-        </button>
       </>
     );
   }

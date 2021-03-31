@@ -9,8 +9,7 @@ class Form extends Component {
     id: "",
     topic: "",
     json: "",
-    group: "please select group",
-    selector: {},
+    group: 0,
   };
 
   handleChange = (e) => {
@@ -19,30 +18,36 @@ class Form extends Component {
   };
 
   hendleChangeSelect = (e) => {
-    const name = e.target.name;
+    // const name = e.target.name;
     const value = e.target.options.selectedIndex;
-    const text = e.target.value;
+    // const text = e.target.value;
 
     this.setState({ group: value });
-    this.setState({ selector: { name, value, text } });
+    // this.setState({ selector: { name, value, text } });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const { topic, json, group, selector } = this.state;
-    const info = { id: genID(), topic, json, group, selector };
+    const { topic, json, group } = this.state;
+
+    if (group == "0") {
+      window.alert(c.setting.list.form.alert)
+      return true
+    }
+
+    const info = { id: genID(), topic, json, group };
 
     this.props.mqtt.filter((w) => w.topic.toLowerCase() == topic.toLowerCase())
       .length == 0
       ? this.props.add(info)
-      : window.alert("Fuck you");
+      : window.alert(c.setting.list.form.alert);
 
     this.setState({
       id: "",
       topic: "",
       json: "",
-      group: "please select group",
+      group: 0,
     });
   };
 
@@ -70,15 +75,15 @@ class Form extends Component {
         <select
           name="group"
           onChange={hendleChangeSelect}
-          value={group}
+          value={group-1}
           required
         >
-          <option defaultValue="0" disabled selected>
-            {c.setting.list.form.select_title}
+          <option defaultValue="" hidden selected>
+            {c.setting.users.form.select_title}
           </option>
           {c.setting.list.form.select.map((e, i) => {
             return (
-              <option key={i} defaultValue={i + 1}>
+              <option required key={i} defaultValue={i + 1}>
                 {e}
               </option>
             );

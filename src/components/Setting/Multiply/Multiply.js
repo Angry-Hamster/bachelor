@@ -11,47 +11,29 @@ class Main extends Component {
     items: [],
     info: {
       time: "",
-      multiplay: "",
+      multiply: "",
     },
-    post: {},
-  };
-
-  post = () => {
-    if (!this.state.items.length) {
-      window.alert(c.setting.multiply.alert);
-      return true;
-    }
-
-    // ! POST
-
-    return true;
   };
 
   addItem = (e) => {
     e.preventDefault();
+    let { time, multiply } = this.state.info;
 
-    const { time, multiplay } = this.state.info;
+    let arr = time.split(":");
+    time = Number(arr[0]) * 60 + Number(arr[1]);
 
-    if (
-      this.state.items.filter((w) => w.time.toLowerCase() == time.toLowerCase())
-        .length == 0
-    ) {
-      let timeItem = time.split(":");
-      let t = Number(timeItem[0]) * 60 + Number(timeItem[1]);
-      const item = { time, multiplay, id: genID(), t };
-
+    if (this.state.items.filter((w) => w.time == time).length) {
+      window.alert(c.setting.multiply.alert);
+    } else {
       let items = [...this.state.items];
-
-      items.push(item);
-
-      items.sort((a, b) => a.t - b.t);
+      items.push({ time, multiply: Number(multiply), id: genID() });
+      items.sort((a, b) => a.time - b.time);
 
       this.setState({ items });
-    } else {
-      window.alert(c.setting.multiply.alert);
+      this.props.get(items);
     }
 
-    this.setState({ info: { time: "", multiplay: "" } });
+    this.setState({ info: { time: "", multiply: "" } });
   };
 
   chage = (e) => {
@@ -67,22 +49,38 @@ class Main extends Component {
     });
 
     this.setState({ items: result });
+    this.props.get(result);
+  };
+
+  getTime = (t) => {
+    let minute = t % 60;
+    let hour = (t - minute) / 60;
+
+    if (minute < 10) {
+      minute = `0${minute}`;
+    }
+
+    if (hour < 10) {
+      hour = `0${hour}`;
+    }
+
+    return `${hour}:${minute}`;
   };
 
   render() {
-    const { addItem, chage, handleDelete, post } = this;
-    const { time, multiplay } = this.state.info;
-    const disable = time != "" && multiplay != "";
+    const { addItem, chage, handleDelete, getTime } = this;
+    const { time, multiply } = this.state.info;
+    const disable = time != "" && multiply != "";
 
     return (
       <>
-        <h2 className={s.title}>Fuck you</h2>
+        <h2 className={s.title}>{c.setting.multiply.title}</h2>
         <ul className={s.list}>
           {this.state.items.map((e) => {
             return (
               <li key={e.id}>
-                <span>{e.time}</span>
-                <span>{e.multiplay}</span>
+                <span>{getTime(e.time)}</span>
+                <span>{e.multiply}</span>
                 <input
                   className={s.close}
                   type="image"
@@ -106,12 +104,12 @@ class Main extends Component {
           />
           <input
             type="number"
-            name="multiplay"
+            name="multiply"
             onChange={chage}
             max="3"
             min="0"
             step="0.01"
-            value={multiplay}
+            value={multiply}
             placeholder={c.setting.multiply.placeholder}
             required
           />
@@ -120,10 +118,6 @@ class Main extends Component {
             {c.setting.multiply.button_add}
           </button>
         </form>
-
-        <button onClick={post} className={s.submit}>
-        {c.setting.multiply.button_submit}
-        </button>
       </>
     );
   }

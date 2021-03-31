@@ -13,6 +13,8 @@ class OpenWeatherMap extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
+    this.props.get(this.state)
   };
 
   render() {
