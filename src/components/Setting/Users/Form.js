@@ -68,7 +68,7 @@ class Form extends Component {
           value={group}
           required
         >
-          <option defaultValue="" hidden selected>
+          <option value="" hidden selected>
             {c.setting.users.form.select_title}
           </option>
           {c.setting.users.form.select.map((e, i) => {

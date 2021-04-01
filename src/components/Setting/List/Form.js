@@ -9,7 +9,7 @@ class Form extends Component {
     id: "",
     topic: "",
     json: "",
-    group: 0,
+    group: "",
   };
 
   handleChange = (e) => {
@@ -31,7 +31,7 @@ class Form extends Component {
 
     const { topic, json, group } = this.state;
 
-    if (group == "0") {
+    if (!group) {
       window.alert(c.setting.list.form.alert)
       return true
     }
@@ -47,7 +47,7 @@ class Form extends Component {
       id: "",
       topic: "",
       json: "",
-      group: 0,
+      group: "",
     });
   };
 
@@ -75,15 +75,15 @@ class Form extends Component {
         <select
           name="group"
           onChange={hendleChangeSelect}
-          value={group-1}
+          value={group}
           required
         >
-          <option defaultValue="" hidden selected>
+          <option value="" hidden>
             {c.setting.users.form.select_title}
           </option>
           {c.setting.list.form.select.map((e, i) => {
             return (
-              <option required key={i} defaultValue={i + 1}>
+              <option required key={i} value={i + 1}>
                 {e}
               </option>
             );
