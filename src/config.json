@@ -18,8 +18,8 @@
       "currency": "uan/kWh"
     },
     "container_power":{
-      "title": "Power",
-      "currency": "Wh"
+      "title": "Напруга",
+      "currency": "В"
     }
   },
 

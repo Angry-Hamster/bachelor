@@ -12,7 +12,7 @@ class Home extends Component {
   state = {
     temp: [0, 0, 0],
     price: { current: 0 },
-    woltege: "state home str 15",
+    woltege: "220",
   };
 
   setTemp = () => {
@@ -30,7 +30,7 @@ class Home extends Component {
   };
 
   setPrice = () => {
-    fetch("/api/tariff", {
+    fetch("/tariff", {
       method: "GET",
       cache: "no-cache",
       headers: {

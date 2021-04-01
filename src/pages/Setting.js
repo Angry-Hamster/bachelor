@@ -13,6 +13,7 @@ import c from "../config.json"
 class Setting extends Component {
   state = {  }
 
+  
   getList = (e) => {
     console.log(e);
   }
