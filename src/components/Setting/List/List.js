@@ -6,9 +6,27 @@ import s from "./s.module.css";
 
 class List extends Component {
   state = {
-    list: [
-    ],
+    list: [],
   };
+
+  getList = () => {
+    fetch("/api/mqtt", {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      res.json()
+      .then((mqtt) => {
+        this.setState({ list: mqtt });
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.getList()
+  }
 
   handleDelete = (id) => {
     const result = this.state.list.filter(e => {
@@ -34,6 +52,7 @@ class List extends Component {
 
   render() {
     const { handleDelete, handleAdd } = this
+
     return (
       <>
         <ul className={s.list_ul}>

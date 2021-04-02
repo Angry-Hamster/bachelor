@@ -11,29 +11,47 @@ class Main extends Component {
     items: [],
     info: {
       time: "",
-      multiply: "",
+      multiplier: "",
     },
   };
 
+  getmultiplier = () => {
+    fetch("/api/multiplier", {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      res.json().then((multiplier) => {
+        this.setState({ items: multiplier.multiplier });
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.getmultiplier();
+  }
+
   addItem = (e) => {
     e.preventDefault();
-    let { time, multiply } = this.state.info;
+    let { time, multiplier } = this.state.info;
 
     let arr = time.split(":");
     time = Number(arr[0]) * 60 + Number(arr[1]);
 
     if (this.state.items.filter((w) => w.time == time).length) {
-      window.alert(c.setting.multiply.alert);
+      window.alert(c.setting.multiplier.alert);
     } else {
       let items = [...this.state.items];
-      items.push({ time, multiply: Number(multiply), id: genID() });
+      items.push({ time, multiplier: Number(multiplier) });
       items.sort((a, b) => a.time - b.time);
 
       this.setState({ items });
       this.props.get(items);
     }
 
-    this.setState({ info: { time: "", multiply: "" } });
+    this.setState({ info: { time: "", multiplier: "" } });
   };
 
   chage = (e) => {
@@ -45,7 +63,7 @@ class Main extends Component {
 
   handleDelete = (e) => {
     const result = this.state.items.filter((i) => {
-      return i.id !== e.target.id;
+      return i.time != e.target.id;
     });
 
     this.setState({ items: result });
@@ -69,8 +87,8 @@ class Main extends Component {
 
   render() {
     const { addItem, chage, handleDelete, getTime } = this;
-    const { time, multiply } = this.state.info;
-    const disable = time != "" && multiply != "";
+    const { time, multiplier } = this.state.info;
+    const disable = time != "" && multiplier != "";
 
     return (
       <>
@@ -78,15 +96,19 @@ class Main extends Component {
         <ul className={s.list}>
           {this.state.items.map((e) => {
             return (
-              <li key={e.id}>
-                <span>{getTime(e.time)}</span>
-                <span>{e.multiply}</span>
+              <li key={e.time}>
+                <div>
+                  <span>{getTime(e.time)}</span>
+                </div>
+                <div>
+                  <span>{e.multiplier}</span>
+                </div>
                 <input
                   className={s.close}
                   type="image"
                   src={close}
                   alt=""
-                  id={e.id}
+                  id={e.time}
                   onClick={handleDelete}
                 />
               </li>
@@ -104,12 +126,12 @@ class Main extends Component {
           />
           <input
             type="number"
-            name="multiply"
+            name="multiplier"
             onChange={chage}
             max="3"
             min="0"
             step="0.01"
-            value={multiply}
+            value={multiplier}
             placeholder={c.setting.multiply.placeholder}
             required
           />

@@ -7,45 +7,91 @@ import c from "../../../config.json";
 
 class List extends Component {
   state = {
-    list: [
-    ],
+    oldUser: [],
+    list: [],
+    status: this.props.status,
   };
 
+  getUser = () => {
+    fetch("/auth/user", {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      res.json().then((users) => {
+        this.setState({ oldUser: users });
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.getUser();
+  }
+
   handleDelete = (name) => {
-    const result = this.state.list.filter(e => {
-      return e.name !== name
-    })
+    if (name == this.props.name) {
+      return window.alert(c.setting.users.list.alert)
+    }
+
+    const result = this.state.list.filter((e) => {
+      return e.name !== name;
+    });
 
     this.setState({ list: result });
+    this.props.get(result);
 
-    this.props.get(result)
+    if (!result.length) {
+      const user = this.state.oldUser.filter((e) => {
+        return e.name !== name;
+      });
+
+      this.setState({ oldUser: user });
+      this.props.remove(name);
+    }
   };
 
   handleAdd = (e) => {
-    this.setState(prevState => {
+    this.props.get(e);
+    this.setState((prevState) => {
       return { list: [...prevState.list, e] };
     });
 
-    this.props.get([...this.state.list, e])
-  }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   return prevState.list !== this.state.list
-  // }
+  };
 
   render() {
-    const { handleDelete, handleAdd } = this
-    return (
-      <div className={s.box}>
-        <h2>{c.setting.users.list}</h2>
+    const { handleDelete, handleAdd } = this;
+    const { list, oldUser } = this.state;
+
+    let allList = [];
+    allList.push(...oldUser, ...list);
+
+    if (this.state.status == 1) {
+      return (
+        <div className={s.box}>
+        <h2>{c.setting.users.list.title}</h2>
         <ul className={s.list_ul}>
-          {this.state.list.map((elem) => {
-            return <Item key={elem.name} delete={handleDelete} info={elem} style={s}/>;
+          {allList.map((elem) => {
+            return (
+              <Item
+                key={elem.name}
+                delete={handleDelete}
+                info={elem}
+                style={s}
+              />
+            );
           })}
         </ul>
-        <Form users={this.state.list} add={handleAdd} style={s}/>
+        <Form users={allList} add={handleAdd} style={s} />
       </div>
-    );
+      );
+    } else {
+      return (
+        <h2>{c.setting.users.noGood}</h2>
+      )
+    }
+
   }
 }
 

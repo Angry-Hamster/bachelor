@@ -15,6 +15,24 @@ class Main extends Component {
     },
   };
 
+  getTemp = () => {
+    fetch("/api/temp", {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      res.json().then((temp) => {
+        this.setState({ items: temp.temp });
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.getTemp()
+  }
+
   addItem = (e) => {
     e.preventDefault();
     let { time, temp } = this.state.info;
@@ -26,7 +44,7 @@ class Main extends Component {
       window.alert(c.setting.time_temp.alert);
     } else {
       let items = [...this.state.items];
-      items.push({ time, temp: Number(temp), id: genID() });
+      items.push({ time, temp: Number(temp) });
       items.sort((a, b) => a.time - b.time);
 
       this.setState({ items });
@@ -46,9 +64,9 @@ class Main extends Component {
 
   handleDelete = (e) => {
     const result = this.state.items.filter((i) => {
-      return i.id !== e.target.id;
+      return i.time != e.target.id;
     });
-
+    
     this.setState({ items: result });
     this.props.get(result);
   };
@@ -73,6 +91,8 @@ class Main extends Component {
     const { time, temp } = this.state.info;
     const disable = time != "" && temp != "";
 
+    // console.log(this.props.info);
+
     return (
       <>
         <h2 className={s.title}>{c.setting.time_temp.title}</h2>
@@ -80,7 +100,7 @@ class Main extends Component {
         <ul className={s.list}>
           {this.state.items.map((e) => {
             return (
-              <li key={e.id}>
+              <li key={e.time}>
                 <div>
                   <span>{getTime(e.time)}</span>
                 </div>
@@ -92,7 +112,7 @@ class Main extends Component {
                   type="image"
                   src={close}
                   alt=""
-                  id={e.id}
+                  id={e.time}
                   onClick={handleDelete}
                 />
               </li>

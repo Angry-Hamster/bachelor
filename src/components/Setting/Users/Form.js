@@ -6,7 +6,7 @@ class Form extends Component {
   state = {
     name: "",
     password: "",
-    group: 0,
+    status: 0,
   };
 
   handleChange = (e) => {
@@ -17,31 +17,31 @@ class Form extends Component {
   hendleChangeSelect = (e) => {
     const value = e.target.options.selectedIndex;
 
-    this.setState({ group: value });
+    this.setState({ status: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!this.state.group) {
+    if (!this.state.status) {
       window.alert(c.setting.users.form.alert)
       return true
     }
 
-    const { name, password, group } = this.state;
-    const info = { name, password, group };
+    const { name, password, status } = this.state;
+    const info = { name, password, status };
 
     this.props.users.filter((w) => w.name.toLowerCase() == name.toLowerCase())
       .length == 0
       ? this.props.add(info)
       : window.alert(c.setting.users.form.alert);
 
-    this.setState({ name: "", password: "", group: ""});
+    this.setState({ name: "", password: "", status: ""});
   };
 
   render() {
     const { state, handleChange, handleSubmit, hendleChangeSelect } = this;
-    const { name, password, group } = state;
+    const { name, password, status } = state;
     return (
       <form onSubmit={handleSubmit} className={this.props.style.form}>
         <input
@@ -63,9 +63,9 @@ class Form extends Component {
           placeholder={c.setting.users.form.placeholder2}
         />
         <select
-          name="group"
+          name="status"
           onChange={hendleChangeSelect}
-          value={group}
+          value={status}
           required
         >
           <option value="" hidden selected>

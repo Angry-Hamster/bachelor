@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Auth } from "./pages/Auth";
 import Home from "./pages/Home";
 import Setting from "./pages/Setting";
 
-export const useRoutes = (isAuthenticated) => {
+export const useRoutes = (isAuthenticated, userStatus) => {
   if (isAuthenticated) {
-    return (
-      <Switch>
-        <Route path="/home" exact>
-          <Home />
-        </Route>
+    if (userStatus == 3) {
+      return (
+        <Switch>
+          <Route path="/home" exact>
+            <Home />
+          </Route>
 
-        <Route path="/setting" exact>
-          <Setting />
-        </Route>
+          <Redirect to="/home" />
+        </Switch>
+      );
+    } else {
+      return (
+        <Switch>
+          <Route path="/home" exact>
+            <Home />
+          </Route>
 
-        <Redirect to="/home" />
-      </Switch>
-    );
+          <Route path="/setting" exact>
+            <Setting />
+          </Route>
+
+          <Redirect to="/home" />
+        </Switch>
+      );
+    }
   }
 
   return (

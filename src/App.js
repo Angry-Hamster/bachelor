@@ -6,21 +6,27 @@ import { AuthContext } from "./context/AuthContext";
 import { Navbar } from "./components/Navigations/Nav";
 
 function App() {
-  const { token, login, logout, userId, ready } = useAuth();
+  const {
+    token,
+    login,
+    logout,
+    userStatus,
+    userName,
+  } = useAuth();
 
   let isAuthenticated = !!token;
-  isAuthenticated = true //!!
+  // isAuthenticated = true //!!
 
-  const routes = useRoutes(isAuthenticated);
-
+  const routes = useRoutes(isAuthenticated, userStatus);
 
   return (
     <AuthContext.Provider
       value={{
         token,
+        userName,
+        userStatus,
         login,
         logout,
-        userId,
         isAuthenticated,
       }}
     >

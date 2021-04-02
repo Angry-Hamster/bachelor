@@ -15,7 +15,7 @@ class ListItem extends Component {
 
   render() {
     const { state, handleClick } = this;
-    const { name, group } = state.info;
+    const { name, status } = state.info;
 
     return (
       <li className={this.props.style.item}>
@@ -24,7 +24,7 @@ class ListItem extends Component {
             <span>{name}</span>
           </div>
           <div>
-            <span>{c.setting.users.form.select[group-1]}</span>
+            <span>{c.setting.users.form.select[status-1]}</span>
           </div>
         </div>
         <input

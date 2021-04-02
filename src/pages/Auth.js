@@ -10,7 +10,7 @@ export const Auth = () => {
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
-    login: "",
+    name: "",
     password: "",
   });
 
@@ -30,8 +30,10 @@ export const Auth = () => {
   const loginHandler = async () => {
     try {
       const data = await request("/auth/login", "POST", { ...form });
-      auth.login(data.token, data.userStatus);
-    } catch (e) {}
+      auth.login(data.token, data.userStatus, data.userName);
+    } catch (e) {
+      window.alert(e)
+    }
   };
 
   const handleSubmit = (e) => {
@@ -41,10 +43,10 @@ export const Auth = () => {
   return (
     <div>
       <form className={s.form} onSubmit={handleSubmit}>
-        <label htmlFor="login">{c.auth.input_name}</label>
+        <label htmlFor="name">{c.auth.input_name}</label>
         <input
-          id="login"
-          name="login"
+          id="name"
+          name="name"
           type="text"
           required
           autoComplete="off"

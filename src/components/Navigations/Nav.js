@@ -19,9 +19,11 @@ export const Navbar = () => {
       <NavLink className={s.link} to="/home">
         {c.navigation.toHome}
       </NavLink>
-      <NavLink className={s.link} to="/setting">
-        {c.navigation.toSetting}
-      </NavLink>
+
+        <NavLink className={s.link} to="/setting">
+          {c.navigation.toSetting}
+        </NavLink>
+
       <a href="/" onClick={logoutHandler}>
         {c.navigation.Exit}
       </a>

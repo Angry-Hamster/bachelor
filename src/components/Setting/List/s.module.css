@@ -20,7 +20,7 @@
   display: inline-flex;
   flex-direction: row;
   overflow-x: auto;
-  max-width: 190px;
+  max-width: 175px;
   /* height: min-content; */
 }
 

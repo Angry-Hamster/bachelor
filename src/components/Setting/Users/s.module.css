@@ -20,6 +20,7 @@
 
 .list_ul li{
   list-style: none;
+  margin-bottom: 3px;
 }
 
 .item {

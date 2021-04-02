@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from "react";
 
 import List from "../components/Setting/List/List";
 import Cards from "../components/Setting/Cards/Cards";
@@ -8,36 +8,71 @@ import Main from "../components/Setting/TimeTemp/Main";
 import Multiply from "../components/Setting/Multiply/Multiply";
 
 import s from "./css/setting.module.css";
-import c from "../config.json"
+import c from "../config.json";
+import { AuthContext } from "../context/AuthContext";
 
-class Setting extends Component {
-  state = {  }
+const request = async (url, method = "GET", body = null, headers = {}) => {
+  try {
+    if (body) {
+      body = JSON.stringify(body);
+      headers["Content-Type"] = "application/json";
+    }
 
-  
-  getList = (e) => {
-    console.log(e);
-  }
+    const response = await fetch(url, { method, body, headers });
+    const data = await response.json();
 
-  getMain = (e) => {
-    console.log(e);
-  }
+    if (!response.ok) {
+      throw new Error(data.message || "Something was wrong");
+    }
+    return data;
+  } catch (e) {}
+};
+const Setting = () => {
+  const { token, userStatus, userName } = useContext(AuthContext);
 
-  getMultiply = (e) => {
-    console.log(e);
-  }
+  // todo POST
+  const setList = (e) => {
+      console.log(e);
+      request("/api/addMqtts", "POST", e, {
+        Authorization: `Bearer ${token}`,
+      });
+    },
+    deleteUser = (e) => {
+      console.log(e);
+      request("/auth/delUser", "POST", {name: e}, {
+        Authorization: `Bearer ${token}`,
+      });
+    },
+    setMain = (e) => {
+      console.log(e);
+      request("/api/addTemps", "POST", e, {
+        Authorization: `Bearer ${token}`,
+      });
+    },
+    setMultiply = (e) => {
+      console.log(e);
+      request("/api/addMultipliers", "POST", e, {
+        Authorization: `Bearer ${token}`,
+      });
+    },
+    setUsers = (e) => {
+      if (e.length == 0) {
+        return;
+      }
+      console.log(e);
+      request("/auth/addUser", "POST", e, {
+        Authorization: `Bearer ${token}`,
+      });
+    },
+    setKey = (e) => {
+      // console.log(e);
+      request("/test", "POST", e, {
+        Authorization: `Bearer ${token}`,
+      });
+    };
 
-  getUsers = (e) => {
-    console.log(e);
-  }
-
-  getKey = (e) => {
-    console.log(e);
-  }
-
-  render() {
-    const { getList, getMain, getMultiply, getUsers, getKey } = this
-    return (
-      <div className={s.main}>
+  return (
+    <div className={s.main}>
       <div className={s.info}>
         <h2>
           {c.setting.title[0]}
@@ -45,19 +80,23 @@ class Setting extends Component {
         </h2>
 
         <div>
-          <List get={getList}/>
+          <List get={setList} />
         </div>
       </div>
 
       <Cards>
-        <Main get={getMain}/>
-        <Multiply get={getMultiply}/>
-        <UserList get={getUsers}/>
-        <OpenWeatherMap get={getKey}/>
+        <Main get={setMain} />
+        <Multiply get={setMultiply} />
+        <UserList
+          get={setUsers}
+          remove={deleteUser}
+          status={userStatus}
+          name={userName}
+        />
+        <OpenWeatherMap get={setKey} />
       </Cards>
     </div>
-     );
-  }
-}
+  );
+};
 
 export default Setting;
